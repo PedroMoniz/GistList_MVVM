@@ -5,13 +5,13 @@ import com.pedromoniz.gistlistmvvm.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
-class PapersoftApplication : Application() {
+class GistListMVVMApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
         // start Koin context
         startKoin {
-            androidContext(this@PapersoftApplication)
+            androidContext(this@GistListMVVMApplication)
             modules(listOf(ApiModule, DatabaseModule,RepositoryModule ,InteractorModule ,ViewModelModule))
         }
     }

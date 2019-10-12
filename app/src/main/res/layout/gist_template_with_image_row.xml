@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="gist"
+            type="com.pedromoniz.gistlistmvvm.domain.entities.GistEntity" />
+        <variable
+            name="viewmodel"
+            type="com.pedromoniz.gistlistmvvm.presentation.gistListPage.GistListPageViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{(view) -> viewmodel.onGistSelected(gist.id)}">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="an eform template with an image, click me for action"
+
+            app:layout_constraintBottom_toTopOf="@+id/gistTemplateImageView"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:id="@+id/gistTemplateImageView"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:layout_editor_absoluteX="16dp"
+            android:contentDescription="@string/gist_image_description" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
