@@ -2,7 +2,6 @@ package com.pedromoniz.gistlistmvvm
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.pedromoniz.gistlistmvvm.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
 
