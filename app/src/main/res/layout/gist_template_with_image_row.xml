@@ -20,7 +20,7 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="an eform template with an image, click me for action"
+            android:text="@{gist.description}"
 
             app:layout_constraintBottom_toTopOf="@+id/gistTemplateImageView"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -32,7 +32,6 @@
             android:adjustViewBounds="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            tools:layout_editor_absoluteX="16dp"
             android:contentDescription="@string/gist_image_description" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

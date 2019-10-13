@@ -4,12 +4,14 @@ package com.pedromoniz.gistlistmvvm.Utils
  * Base Class for handling errors/failures/exceptions.
  * Every feature specific failure should extend [FeatureFailure] class.
  */
-sealed class Failure {
+sealed class Failure(val exception: Exception = Exception("Failure")) {
     object NetworkConnection : Failure()
     object ServerError : Failure()
 
     /** * Extend this class for feature specific failures.*/
-    abstract class FeatureFailure: Failure()
+    open class FeatureFailure(featureException: Exception = Exception("Feature failure")) : Failure(featureException)
 
-    //todo, add exception to failure and use when to have other Failure types
+    override fun equals(other: Any?): Boolean {
+        return other is Failure
+    }
 }

@@ -25,7 +25,6 @@ class GistListPageViewModel(
                 ::handleGists
             )
         }
-
     }
 
     private fun handleGists(gists: List<GistEntity>) {

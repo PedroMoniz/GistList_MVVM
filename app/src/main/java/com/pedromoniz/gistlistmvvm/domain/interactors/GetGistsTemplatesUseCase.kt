@@ -4,6 +4,7 @@ import com.pedromoniz.gistlistmvvm.Utils.Either
 import com.pedromoniz.gistlistmvvm.Utils.Failure
 import com.pedromoniz.gistlistmvvm.Utils.UseCase
 import com.pedromoniz.gistlistmvvm.domain.entities.GistEntity
+import com.pedromoniz.gistlistmvvm.domain.exceptions.NetworkConnectionError
 import com.pedromoniz.gistlistmvvm.domain.gateways.GistsGateway
 
 class GetGistsTemplatesUseCase(
@@ -13,10 +14,18 @@ class GetGistsTemplatesUseCase(
         return try {
             val gists = gistsGateway.getGists()
             Either.Right(gists)
-        } catch (exp: Exception) {
-            Either.Left(GetGistDetailFailure(exp))
         }
+        catch (exp: Exception) {
+            Either.Left(Failure.NetworkConnection)
+        }
+        //todo, for now we only care for failed connection
+//        catch (exp: NetworkConnectionError) {
+//            Either.Left(Failure.NetworkConnection)
+//        }
+//        catch (exp: Exception) {
+//            Either.Left(GetGistsTemplatesFailure(exp))
+//        }
     }
 
-    data class GetGistDetailFailure(val error: Exception) : Failure.FeatureFailure()
+    data class GetGistsTemplatesFailure(val error: Exception) : Failure.FeatureFailure(error)
 }

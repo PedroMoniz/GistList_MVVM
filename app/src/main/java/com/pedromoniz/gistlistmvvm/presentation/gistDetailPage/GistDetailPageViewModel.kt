@@ -11,6 +11,7 @@ import com.pedromoniz.gistlistmvvm.domain.interactors.GetGistDetailUseCase
 class GistDetailPageViewModel(
     val getGistDetailUseCase: GetGistDetailUseCase
 ) : BaseViewModel() {
+
     private val _gist = MutableLiveData<GistEntity>().apply { value = null }
     val gist: LiveData<GistEntity> = _gist
 

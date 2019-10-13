@@ -7,9 +7,6 @@ import org.koin.dsl.module
 
 
 val DatabaseModule = module {
-    single {
-        Room.databaseBuilder(androidApplication(), GistDatabase::class.java, "Gists.db")
-            .build()
-    }
-    single(createdAtStart = false) { get<GistDatabase>().gistDao() }
+    single { GistDatabase.getInstance(androidApplication()) }
+    single(createdAtStart = true) { get<GistDatabase>().gistDao() }
 }

@@ -8,6 +8,7 @@ import com.google.android.material.snackbar.Snackbar
 
 import com.pedromoniz.gistlistmvvm.R
 import com.pedromoniz.gistlistmvvm.Utils.Failure
+import com.pedromoniz.gistlistmvvm.domain.interactors.GetGistsTemplatesUseCase
 import kotlinx.android.synthetic.main.gist_list_page_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -18,7 +19,7 @@ class GistListPage : Fragment(R.layout.gist_list_page_fragment) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel.failure.observe(this, Observer { failure -> handleFailure(failure)})
+        viewModel.failure.observe(this, Observer { failure -> handleFailure(failure) })
         setupListAdapter()
         viewModel.loadGists()
     }
@@ -27,7 +28,7 @@ class GistListPage : Fragment(R.layout.gist_list_page_fragment) {
         val adapter = GistListAdapter(viewModel)
         gistListPageFragmenteRecyclerView.adapter = adapter
         viewModel.gists.observe(this, Observer {
-            adapter.setData( if(it.isNullOrEmpty()) emptyList() else it.toList())
+            adapter.setData(if (it.isNullOrEmpty()) emptyList() else it.toList())
         })
         // Navigate to detail view with the image's url to display
         viewModel.navigateToDetail.observe(this, Observer { gistId ->
@@ -38,11 +39,28 @@ class GistListPage : Fragment(R.layout.gist_list_page_fragment) {
 
     private fun handleFailure(failure: Failure?) {
         when (failure) {
+            is GetGistsTemplatesUseCase.GetGistsTemplatesFailure -> {
+                this.view?.let {
+                    failure.exception.message?.let { message ->
+                        Snackbar.make(
+                            it,
+                            message,
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
             is Failure.NetworkConnection -> {
-                this.view?.let { Snackbar.make(it,"Failed Network Connection", Snackbar.LENGTH_SHORT).show() }
+                this.view?.let {
+                    Snackbar.make(
+                        it,
+                        "Failed Network Connection",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
             }
             is Failure.ServerError -> {
-                this.view?.let { Snackbar.make(it,"Server Error", Snackbar.LENGTH_SHORT).show() }
+                this.view?.let { Snackbar.make(it, "Server Error", Snackbar.LENGTH_SHORT).show() }
             }
         }
     }
